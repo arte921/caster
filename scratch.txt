@@ -1,0 +1,20 @@
+constructor(player){
+  this.x1 = player.pos.x + Math.cos(player.bearing) - Math.cos((2 * Math.PI + player.bearing - 0.5 * Math.PI) % (2 * Math.PI)) * player.shieldwidth / 2
+  this.y1 = player.pos.x + Math.sin(player.bearing) - Math.sin((2 * Math.PI + player.bearing - 0.5 * Math.PI) % (2 * Math.PI)) * player.shieldwidth / 2
+  this.x2 = player.pos.x + Math.cos(player.bearing) + Math.cos((2 * Math.PI + player.bearing - 0.5 * Math.PI) % (2 * Math.PI)) * player.shieldwidth / 2
+  this.y2 = player.pos.x + Math.sin(player.bearing) + Math.sin((2 * Math.PI + player.bearing - 0.5 * Math.PI) % (2 * Math.PI)) * player.shieldwidth / 2
+
+
+
+  /*
+  console.log(this.sidelength)
+  console.log(this.bearing1)
+  console.log(this.bearing2)
+  console.log(player.fov)*/
+
+
+
+      console.log(this.x1)
+      console.log(this.y1)
+      console.log(this.x2)
+      console.log(this.y2)
