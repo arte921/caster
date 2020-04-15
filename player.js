@@ -29,7 +29,7 @@ class Player{
       }
     }
 
-    this.minimap.render(this.pos, shield.pos1)
-    //this.minimap.drawline(Math.random()*100,Math.random()*100,"rgb(255,0,255)")
+    this.minimap.render(this.pos, shield)
+    this.minimap.drawline(Math.random()*100,Math.random()*100,"rgb(255,0,255)")
   }
 }
