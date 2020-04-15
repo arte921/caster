@@ -18,8 +18,6 @@ class Shield{
   rayintersect(i,maxi){
     let x = this.x1 + i/maxi*this.dx
     let y = this.y1 + i/maxi*this.dy
-    console.log(x)
-    console.log(y)
     return new Point(x,y)
   }
 }
