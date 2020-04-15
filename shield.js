@@ -11,8 +11,8 @@ class Shield{
 
     //console.log(this.x1,this.y1,this.x2,this.y2)
 
-    this.point1 = new Point(this.x1,this.y1)
-    this.point2 = new Point(this.x2,this.y2)
+    this.pos1 = new Point(this.x1,this.y1)
+    this.pos2 = new Point(this.x2,this.y2)
     this.dx = this.x2 - this.x1
     this.dy = this.y2 - this.y1
   }

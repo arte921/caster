@@ -15,20 +15,23 @@ class Minimap{
     ctx.fillStyle = bgcolor
     ctx.fillRect(this.minx, this.miny, this.xsize, this.ysize)
     this.walls.forEach(wall => {
-      this.drawline(wall.point1,wall.point2,wall.color)
+      this.drawline(wall.pos1,wall.pos2,wall.color)
     })
     ctx.fillStyle = "rgb(255,255,255)"
     ctx.fillRect(this.xtopx(playerpos.x), this.ytopx(playerpos.y),1,1)
-    ctx.beginPath()
+    //ctx.beginPath()
 
-    ctx.strokeStyle = "rgb(255,255,255)"/*
+    //ctx.strokeStyle = "rgb(255,255,255)"
+    /*
     ctx.moveTo(this.xtopx(player.pos.x + Math.cos(player.)), this.ytopx(player.pos.y))
     ctx.lineTo(this.xtopx(player.pos.x), this.ytopx(player.pos.y))
     ctx.stroke()*/
 
+    this.drawline(shield.pos1,shield.pos2,"rgb(255,255,255)")
+/*
     ctx.moveTo(this.xtopx(shield.x1),this.ytopx(shield.y1))
     ctx.lineTo(this.xtopx(shield.x2),this.ytopx(shield.y2))
-    ctx.stroke()
+    ctx.stroke()*/
   }
 
   xtopx(x){

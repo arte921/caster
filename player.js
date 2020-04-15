@@ -10,7 +10,6 @@ class Player{
 
   render(){
     let shield = new Shield(this)
-    console.log(mcbwidth)
     for(let i=0;i<mcbwidth;i++){
       let ray = new Ray(this.pos,shield.rayintersect(i,mcbwidth))
       let record = Infinity
@@ -30,6 +29,7 @@ class Player{
       }
     }
 
-    this.minimap.render(this.pos, shield)
+    this.minimap.render(this.pos, shield.pos1)
+    //this.minimap.drawline(Math.random()*100,Math.random()*100,"rgb(255,0,255)")
   }
 }

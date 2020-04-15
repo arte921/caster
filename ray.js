@@ -1,11 +1,11 @@
 class Ray{
-  //point1 = origin, point2 on shield
-  constructor(point1,point2){
-    this.point1 = point1
-    this.point2 = point2
-    this.x1 = point1.x
-    this.y1 = point1.y
-    this.x2 = point2.x
-    this.y2 = point2.y
+  //pos1 = origin, pos2 on shield
+  constructor(pos1,pos2){
+    this.pos1 = pos1
+    this.pos2 = pos2
+    this.x1 = pos1.x
+    this.y1 = pos1.y
+    this.x2 = pos2.x
+    this.y2 = pos2.y
   }
 }

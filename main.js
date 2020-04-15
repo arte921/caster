@@ -9,7 +9,7 @@ var bgcolor = "#000000"
 const heightfactor = 0.1
 
 let fov = 120
-let walls = []
+var walls = []
 
 for(let i = 0;i<10;i++){
   //walls.push(new Wall(new Point(Math.random()*100,Math.random()*100),new Point(Math.random()*100,Math.random()*100),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
@@ -19,16 +19,18 @@ walls.push(new Wall(new Point(10,10),new Point(90,10),"rgb(" + Math.random() * 2
 walls.push(new Wall(new Point(90,90),new Point(10,90),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
 walls.push(new Wall(new Point(90,90),new Point(90,10),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
 
-let player = new Player(new Point(20,20),0,fov/180*Math.PI)
+let player = new Player(new Point(20,20),Math.PI/4,fov/180*Math.PI)
 
 let t0 = performance.now()
 function drawframe(){
   let dt = performance.now() - t0
   t0 = performance.now()
-  player.bearing += Math.PI*dt/5000
   ctx.clearRect(0,0,mcbwidth,mcbheight)
   player.render()
-  //window.requestAnimationFrame(drawframe)
+  player.bearing += Math.PI*dt/5000
+
+
+  window.requestAnimationFrame(drawframe)
 }
 
 window.requestAnimationFrame(drawframe)
