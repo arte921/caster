@@ -11,11 +11,13 @@ class Wall{
 
   intersect(ray){
     let denominator = (this.x1-this.x2)*(ray.y1-ray.y2)-(this.y1-this.y2)*(ray.x1-ray.x2)
-    let t
-    if(denominator != 0){
-      t = ((this.x1-ray.x1)*(ray.y1-ray.y2)-(this.y1-ray.y1)*(ray.x1-ray.x2))/denominator
-    }else return null
-    if(t >= 0 && t <= 1 && (ray.x1 - ray.x2) * (ray.x1 - this.x1) > 0 && (ray.y1 - ray.y2) * (ray.y1 - this.y1) > 0) return new Point(this.x1 + t * (this.x2-this.x1), this.y1 + t * (this.y2-this.y1)).distanceto(ray.point1)
+    if(denominator == 0) return null
+    let t = ((this.x1-ray.x1)*(ray.y1-ray.y2)-(this.y1-ray.y1)*(ray.x1-ray.x2))/denominator
+    if(t >= 0 && t <= 1 && (ray.x1 - ray.x2) * (ray.x1 - this.x1) > 0 && (ray.y1 - ray.y2) * (ray.y1 - this.y1) > 0){
+      player.minimap.drawline(ray.point1,new Point(this.x1 + t * (this.x2-this.x1), this.y1 + t * (this.y2-this.y1)),"rgb(255,255,255)")
+      //console.log(new Point(this.x1 + t * (this.x2-this.x1), this.y1 + t * (this.y2-this.y1)).distanceto(ray.point1))
+      return new Point(this.x1 + t * (this.x2-this.x1), this.y1 + t * (this.y2-this.y1)).distanceto(ray.point1)
+    }
     return null
   }
 }

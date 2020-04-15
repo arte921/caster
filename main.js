@@ -4,24 +4,22 @@ var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext("2d")
 canvas.width = mcbwidth
 canvas.height = mcbheight
-var bgcolor = "#FFFFFF"
+var bgcolor = "#000000"
 
 const heightfactor = 0.1
 
-let fov = 70
+let fov = 120
 let walls = []
 
-walls.push(new Wall(new Point(0,0),new Point(0,100),"#FF0000"))
-walls.push(new Wall(new Point(0,0),new Point(100,0),"#00FF00"))
-walls.push(new Wall(new Point(100,100),new Point(0,100),"#0000FF"))
-walls.push(new Wall(new Point(100,100),new Point(100,0),"#FF00FF"))
+for(let i = 0;i<10;i++){
+  //walls.push(new Wall(new Point(Math.random()*100,Math.random()*100),new Point(Math.random()*100,Math.random()*100),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
+}
+walls.push(new Wall(new Point(10,10),new Point(10,90),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
+walls.push(new Wall(new Point(10,10),new Point(90,10),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
+walls.push(new Wall(new Point(90,90),new Point(10,90),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
+walls.push(new Wall(new Point(90,90),new Point(90,10),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
 
-let player = new Player(new Point(50,50),0,fov/180*Math.PI)
-let minimap = new Minimap(0, 0, 100, mcbwidth, mcbheight, walls)
-
-player.render()
-minimap.render()
-
+let player = new Player(new Point(20,20),0,fov/180*Math.PI)
 
 let t0 = performance.now()
 function drawframe(){
@@ -30,7 +28,7 @@ function drawframe(){
   player.bearing += Math.PI*dt/5000
   ctx.clearRect(0,0,mcbwidth,mcbheight)
   player.render()
-  window.requestAnimationFrame(drawframe)
+  //window.requestAnimationFrame(drawframe)
 }
 
 window.requestAnimationFrame(drawframe)
