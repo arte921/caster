@@ -26,6 +26,7 @@ function drawframe(){
   let dt = performance.now() - t0
   t0 = performance.now()
   player.render()
+  document.getElementById("title").innerHTML = Math.round(1/(dt/1000)) + " fps"
   window.requestAnimationFrame(drawframe)
 }
 
