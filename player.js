@@ -3,12 +3,13 @@ class Player{
     this.pos = pos
     this.bearing = bearing
     this.fov = fov
-
+    this.speed = 1
     this.shieldwidth = 2/(Math.tan(0.5*(Math.PI-fov)))
-    this.minimap = new Minimap(0, 0, 800, 100, 100, walls) //minx, miny, xsize, scenewidth, sceneheight, walls
+    this.minimap = new Minimap(0, 0, 80, 100, 100, walls) //minx, miny, xsize, scenewidth, sceneheight, walls
   }
 
   render(){
+    ctx.clearRect(0,0,mcbwidth,mcbheight)
     let shield = new Shield(this)
     this.minimap.render(this.pos, shield)
     for(let i=0;i<mcbwidth;i++){
@@ -35,7 +36,7 @@ class Player{
         this.minimap.drawline(this.pos,recordintersection,record.color)
         //console.log(record)
         ctx.fillStyle = record.color
-        //ctx.fillRect(i,mcbheight/2 - wallheight/2, 1, wallheight)
+        ctx.fillRect(i,mcbheight/2 - wallheight/2, 1, wallheight)
       }
     }
   }

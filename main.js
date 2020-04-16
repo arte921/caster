@@ -25,12 +25,50 @@ let t0 = performance.now()
 function drawframe(){
   let dt = performance.now() - t0
   t0 = performance.now()
-  ctx.clearRect(0,0,mcbwidth,mcbheight)
   player.render()
-  player.bearing += Math.PI*dt/5000
-
-
   window.requestAnimationFrame(drawframe)
 }
+
+function mousemoved(e){
+  player.bearing += Math.PI*e.movementX/mcbwidth
+}
+
+document.onkeypress = function(e){
+  switch(e.key){
+    case "w":
+      player.pos.x += Math.cos(player.bearing) * player.speed
+      player.pos.y += Math.sin(player.bearing) * player.speed
+    break;
+    case "s":
+      player.pos.x -= Math.cos(player.bearing) * player.speed
+      player.pos.y -= Math.sin(player.bearing) * player.speed
+    break;
+    case "a":
+      player.pos.x -= Math.cos(player.bearing + Math.PI / 2) * player.speed
+      player.pos.y -= Math.sin(player.bearing + Math.PI / 2) * player.speed
+    break;
+    case "d":
+      player.pos.x += Math.cos(player.bearing + Math.PI / 2) * player.speed
+      player.pos.y += Math.sin(player.bearing + Math.PI / 2) * player.speed
+    break;
+
+  }
+}
+
+canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock
+document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock
+canvas.onclick = () => {
+  canvas.requestPointerLock()
+}
+document.addEventListener('pointerlockchange', lockChangeAlert, false)
+document.addEventListener('mozpointerlockchange', lockChangeAlert, false)
+function lockChangeAlert() {
+  if (document.pointerLockElement === canvas || document.mozPointerLockElement === canvas) {
+    document.addEventListener("mousemove", mousemoved, false)
+  } else {
+    document.removeEventListener("mousemove", mousemoved, false)
+  }
+}
+
 
 window.requestAnimationFrame(drawframe)
