@@ -1,8 +1,10 @@
 class Shield{
   constructor(player){
     this.sidelength = Math.sqrt(1 + Math.pow(player.shieldwidth/2,2))
-    this.bearing1 = (2 * Math.PI + player.bearing - player.fov / 2) % (2 * Math.PI)
-    this.bearing2 = (2 * Math.PI + player.bearing + player.fov / 2) % (2 * Math.PI)
+    //this.bearing1 = (2 * Math.PI + player.bearing - player.fov / 2) % (2 * Math.PI)
+    //this.bearing2 = (2 * Math.PI + player.bearing + player.fov / 2) % (2 * Math.PI)
+    this.bearing1 = player.bearing - player.fov / 2
+    this.bearing2 = player.bearing + player.fov / 2
 
     this.x1 = player.pos.x + Math.cos(this.bearing1) * this.sidelength
     this.y1 = player.pos.y + Math.sin(this.bearing1) * this.sidelength

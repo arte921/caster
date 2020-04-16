@@ -5,31 +5,38 @@ class Player{
     this.fov = fov
 
     this.shieldwidth = 2/(Math.tan(0.5*(Math.PI-fov)))
-    this.minimap = new Minimap(0, 0, 200, 100, 100, walls) //minx, miny, xsize, scenewidth, sceneheight, walls
+    this.minimap = new Minimap(0, 0, 80, 100, 100, walls) //minx, miny, xsize, scenewidth, sceneheight, walls
   }
 
   render(){
     let shield = new Shield(this)
+    this.minimap.render(this.pos, shield)
     for(let i=0;i<mcbwidth;i++){
       let ray = new Ray(this.pos,shield.rayintersect(i,mcbwidth))
-      let record = Infinity
-      let recordcolor
+      //console.log(ray)
+      let record, recordintersection
+      let recorddistance = Infinity
       walls.forEach(wall => {
-        let distance = wall.intersect(ray)
-        if(distance != null && distance < record){
-          record = distance
-          recordcolor = wall.color
-          //console.log(record)
+        let intersection = wall.intersect(ray)
+        if(intersection != null){
+          let distance = intersection.distanceto(this.pos)
+
+          //console.log(distance)
+          if(distance < recorddistance){
+            record = wall
+            recorddistance = distance
+            recordintersection = intersection
+          }
         }
       })
-      if(record != Infinity){
-        let wallheight = (mcbheight - record) * heightfactor
-        ctx.fillStyle = recordcolor
-        ctx.fillRect(i,mcbheight/2 - wallheight/2,1,wallheight)
+
+      if(recorddistance != Infinity){
+        let wallheight = (mcbheight - recorddistance) * heightfactor
+        this.minimap.drawline(this.pos,recordintersection,record.color)
+        //console.log(record)
+        ctx.fillStyle = record.color
+        ctx.fillRect(i,mcbheight/2 - wallheight/2, 1, wallheight)
       }
     }
-
-    this.minimap.render(this.pos, shield)
-    this.minimap.drawline(Math.random()*100,Math.random()*100,"rgb(255,0,255)")
   }
 }
