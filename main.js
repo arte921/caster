@@ -11,7 +11,7 @@ const heightfactor = 0.1
 let fov = 90
 var walls = []
 
-for(let i = 0;i<2;i++){
+for(let i = 0;i<0;i++){
   walls.push(new Wall(new Point(Math.random()*100,Math.random()*100),new Point(Math.random()*100,Math.random()*100),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
 }
 walls.push(new Wall(new Point(10,10),new Point(10,90),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
