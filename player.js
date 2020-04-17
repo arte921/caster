@@ -14,13 +14,9 @@ class Player{
       let denominator = (this.pos.x-dest.x)*(wall.y1-wall.y2)-(this.pos.y-dest.y)*(wall.x1-wall.x2)
       let t = ((this.pos.x-wall.x1)*(wall.y1-wall.y2)-(this.pos.y-wall.y1)*(wall.x1-wall.x2))/denominator
       let u = -((this.pos.x-dest.x)*(this.pos.y-wall.y1)-(this.pos.y-dest.y)*(this.pos.x-wall.x1))/denominator
-      if(t >= 0 && t <= 1 && u >= 0 && u <= 1){
-        canmove = false
-      }
+      if(t >= 0 && t <= 1 && u >= 0 && u <= 1) canmove = false
     })
-    if(canmove){
-      this.pos = dest
-    }
+    if(canmove) this.pos = dest
   }
 
   render(){
