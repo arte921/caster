@@ -11,10 +11,9 @@ class Player{
   move(dest){
     let canmove = true
     walls.forEach(wall => {
-      let denominator = (this.x-dest.x)*(wall.y1-wall.y2)-(this.y-dest.y)*(wall.x1-wall.x2)
-      if(denominator == 0) return null
-      let t = ((this.x-wall.x1)*(wall.y1-wall.y2)-(this.y-wall.y1)*(wall.x1-wall.x2))/denominator
-      let u = -((this.x-wall.x1)*(wall.y1-wall.y2)-(this.y-wall.y1)*(wall.x1-wall.x2))/denominator
+      let denominator = (this.pos.x-dest.x)*(wall.y1-wall.y2)-(this.pos.y-dest.y)*(wall.x1-wall.x2)
+      let t = ((this.pos.x-wall.x1)*(wall.y1-wall.y2)-(this.pos.y-wall.y1)*(wall.x1-wall.x2))/denominator
+      let u = -((this.pos.x-dest.x)*(this.pos.y-wall.y1)-(this.pos.y-dest.y)*(this.pos.x-wall.x1))/denominator
       if(t >= 0 && t <= 1 && u >= 0 && u <= 1){
         canmove = false
         console.log("hi")
@@ -39,7 +38,6 @@ class Player{
         if(intersection != null){
           let distance = intersection.distanceto(this.pos)
 
-          //console.log(distance)
           if(distance < recorddistance){
             record = wall
             recorddistance = distance
