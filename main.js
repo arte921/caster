@@ -49,8 +49,7 @@ document.onkeypress = function(e){
 
     break;
     case "d":
-      player.move(new Point(player.pos.x += Math.cos(player.bearing + Math.PI / 2) * player.speed, player.pos.y += Math.sin(player.bearing + Math.PI / 2) * player.speed))
-      //player.pos.y += Math.sin(player.bearing + Math.PI / 2) * player.speed
+      player.move(new Point(player.pos.x + Math.cos(player.bearing + Math.PI / 2) * player.speed, player.pos.y + Math.sin(player.bearing + Math.PI / 2) * player.speed))
     break;
 
   }
