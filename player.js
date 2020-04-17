@@ -12,7 +12,7 @@ class Player{
     ctx.clearRect(0,0,mcbwidth,mcbheight)
     let shield = new Shield(this)
     this.minimap.render(this.pos, shield)
-    for(let i=0;i<mcbwidth;i++){
+    for(let i=0; i<mcbwidth; i++){
       let ray = new Ray(this.pos,shield.rayintersect(i,mcbwidth))
       //console.log(ray)
       let record, recordintersection

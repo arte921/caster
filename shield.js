@@ -3,8 +3,10 @@ class Shield{
     this.sidelength = Math.sqrt(1 + Math.pow(player.shieldwidth/2,2))
     //this.bearing1 = (2 * Math.PI + player.bearing - player.fov / 2) % (2 * Math.PI)
     //this.bearing2 = (2 * Math.PI + player.bearing + player.fov / 2) % (2 * Math.PI)
+    this.fov = player.fov
     this.bearing1 = player.bearing - player.fov / 2
     this.bearing2 = player.bearing + player.fov / 2
+    this.playerpos = player.pos
 
     this.x1 = player.pos.x + Math.cos(this.bearing1) * this.sidelength
     this.y1 = player.pos.y + Math.sin(this.bearing1) * this.sidelength
@@ -20,9 +22,10 @@ class Shield{
   }
 
   rayintersect(i,maxi){
-    let a = Math.cos(i/maxi * Math.PI - Math.PI) * maxi
-    let x = this.x1 + a/maxi*this.dx
-    let y = this.y1 + a/maxi*this.dy
+
+    let a = this.bearing1 + i / maxi * this.fov
+    let x = this.playerpos.x + Math.cos(a)
+    let y = this.playerpos.y + Math.sin(a)
     //console.log(x,y)
     return new Point(x,y)
   }
