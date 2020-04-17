@@ -8,6 +8,23 @@ class Player{
     this.minimap = new Minimap(0, 0, 80, 100, 100, walls) //minx, miny, xsize, scenewidth, sceneheight, walls
   }
 
+  move(dest){
+    let canmove = true
+    walls.forEach(wall => {
+      let denominator = (this.x-dest.x)*(wall.y1-wall.y2)-(this.y-dest.y)*(wall.x1-wall.x2)
+      if(denominator == 0) return null
+      let t = ((this.x-wall.x1)*(wall.y1-wall.y2)-(this.y-wall.y1)*(wall.x1-wall.x2))/denominator
+      let u = -((this.x-wall.x1)*(wall.y1-wall.y2)-(this.y-wall.y1)*(wall.x1-wall.x2))/denominator
+      if(t >= 0 && t <= 1 && u >= 0 && u <= 1){
+        canmove = false
+        console.log("hi")
+      }
+    })
+    if(canmove){
+      this.pos = dest
+    }
+  }
+
   render(){
     ctx.clearRect(0,0,mcbwidth,mcbheight)
     let shield = new Shield(this)
@@ -32,7 +49,8 @@ class Player{
       })
 
       if(recorddistance != Infinity){
-        let wallheight = (mcbheight - recorddistance) * heightfactor
+        //let wallheight = (mcbheight - Math.pow(recorddistance,-1)) * heightfactor
+        let wallheight = Math.pow(recorddistance,-1) * 1000
         this.minimap.drawline(this.pos,recordintersection,record.color)
         //console.log(record)
         ctx.fillStyle = record.color

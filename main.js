@@ -8,7 +8,7 @@ var bgcolor = "#000000"
 
 const heightfactor = 0.1
 
-let fov = 90
+let fov = 70
 var walls = []
 
 for(let i = 0;i<0;i++){
@@ -38,20 +38,19 @@ function mousemoved(e){
 document.onkeypress = function(e){
   switch(e.key){
     case "w":
-      player.pos.x += Math.cos(player.bearing) * player.speed
-      player.pos.y += Math.sin(player.bearing) * player.speed
+      player.move(new Point(player.pos.x + Math.cos(player.bearing) * player.speed, player.pos.y + Math.sin(player.bearing) * player.speed))
     break;
     case "s":
-      player.pos.x -= Math.cos(player.bearing) * player.speed
-      player.pos.y -= Math.sin(player.bearing) * player.speed
+      player.move(new Point(player.pos.x - Math.cos(player.bearing) * player.speed, player.pos.y - Math.sin(player.bearing) * player.speed))
+
     break;
     case "a":
-      player.pos.x -= Math.cos(player.bearing + Math.PI / 2) * player.speed
-      player.pos.y -= Math.sin(player.bearing + Math.PI / 2) * player.speed
+      player.move(new Point(player.pos.x - Math.cos(player.bearing + Math.PI / 2) * player.speed, player.pos.y - Math.sin(player.bearing + Math.PI / 2) * player.speed))
+
     break;
     case "d":
-      player.pos.x += Math.cos(player.bearing + Math.PI / 2) * player.speed
-      player.pos.y += Math.sin(player.bearing + Math.PI / 2) * player.speed
+      player.move(new Point(player.pos.x += Math.cos(player.bearing + Math.PI / 2) * player.speed, player.pos.y += Math.sin(player.bearing + Math.PI / 2) * player.speed))
+      //player.pos.y += Math.sin(player.bearing + Math.PI / 2) * player.speed
     break;
 
   }
