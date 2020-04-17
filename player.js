@@ -16,7 +16,6 @@ class Player{
       let u = -((this.pos.x-dest.x)*(this.pos.y-wall.y1)-(this.pos.y-dest.y)*(this.pos.x-wall.x1))/denominator
       if(t >= 0 && t <= 1 && u >= 0 && u <= 1){
         canmove = false
-        console.log("hi")
       }
     })
     if(canmove){
