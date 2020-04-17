@@ -72,5 +72,3 @@ function lockChangeAlert() {
 }
 
 window.requestAnimationFrame(drawframe)
-
-console.log(new Point(1,1).bearingto(new Point(2,2)))
