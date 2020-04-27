@@ -6,6 +6,7 @@ class Player{
     this.speed = 1
     this.shieldwidth = 2/(Math.tan(0.5*(Math.PI-fov)))
     this.minimap = new Minimap(0, 0, 80, 100, 100, walls) //minx, miny, xsize, scenewidth, sceneheight, walls
+    this.shield = new Shield(this)
   }
 
   move(dest){
@@ -17,19 +18,21 @@ class Player{
       if(t >= 0 && t <= 1 && u >= 0 && u <= 1) canmove = false
     })
     if(canmove) this.pos = dest
+
+    socket.send(JSON.stringify(this.shield))
   }
 
   render(){
     ctx.clearRect(0,0,mcbwidth,mcbheight)
-    let shield = new Shield(this)
-    this.minimap.render(this.pos, shield)
+    this.shield = new Shield(this)
+    this.minimap.render(this.pos, this.shield)
     for(let i=0; i<mcbwidth; i++){
-      let ray = new Ray(this.pos,shield.rayintersect(i,mcbwidth))
+      let ray = new Ray(this.pos,this.shield.rayintersect(i,mcbwidth))
       //console.log(ray)
       let record, recordintersection
       let recorddistance = Infinity
       walls.forEach(wall => {
-        let intersection = wall.intersect(ray)
+        let intersection = ray.intersect(wall)
         if(intersection != null){
           let distance = intersection.distanceto(this.pos)
 

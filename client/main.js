@@ -9,11 +9,8 @@ var bgcolor = "#000000"
 const heightfactor = 0.1
 
 let fov = 70
-var walls = []
 
-for(let i = 0;i<10;i++){
-  walls.push(new Wall(new Point(Math.random()*100,Math.random()*100),new Point(Math.random()*100,Math.random()*100),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
-}
+var walls = []
 
 walls.push(new Wall(new Point(10,10),new Point(10,90),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
 walls.push(new Wall(new Point(10,10),new Point(90,10),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
@@ -33,6 +30,7 @@ function drawframe(){
 
 function mousemoved(e){
   player.bearing += Math.PI*e.movementX/mcbwidth
+  socket.send(JSON.stringify(player.shield))
 }
 
 document.onkeypress = function(e){
@@ -71,3 +69,14 @@ function lockChangeAlert() {
 }
 
 window.requestAnimationFrame(drawframe)
+
+const socket = new WebSocket("ws://localhost:8080")
+socket.addEventListener("open", function(event){
+  console.log("opened")
+})
+
+socket.addEventListener("message", function (event) {
+  walls = JSON.parse(event.data)
+  console.log(event.data)
+  console.log(walls)
+})
