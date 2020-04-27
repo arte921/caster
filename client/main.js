@@ -11,6 +11,7 @@ const heightfactor = 0.1
 let fov = 70
 
 var walls = []
+var otherplayers = []
 
 walls.push(new Wall(new Point(10,10),new Point(10,90),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
 walls.push(new Wall(new Point(10,10),new Point(90,10),"rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"))
@@ -30,7 +31,8 @@ function drawframe(){
 
 function mousemoved(e){
   player.bearing += Math.PI*e.movementX/mcbwidth
-  socket.send(JSON.stringify(player.shield))
+  socket.send(JSON.stringify(new Wall(player.shield.pos1, player.shield.pos2, player.color)))
+  //console.log(JSON.stringify(new Wall(player.shield.pos1, player.shield.pos2, player.color)))
 }
 
 document.onkeypress = function(e){
@@ -70,13 +72,23 @@ function lockChangeAlert() {
 
 window.requestAnimationFrame(drawframe)
 
-const socket = new WebSocket("ws://localhost:8080")
+var socket = new WebSocket("ws://localhost:8080")
 socket.addEventListener("open", function(event){
-  console.log("opened")
+  socket.send(JSON.stringify(new Wall(player.shield.pos1, player.shield.pos2, player.color)))
+  console.log("connected")
 })
 
 socket.addEventListener("message", function (event) {
-  walls = JSON.parse(event.data)
-  console.log(event.data)
-  console.log(walls)
+  console.log(JSON.parse(event.data))
+  let data = JSON.parse(event.data)
+  if(data[0] == "map"){
+    data.shift()
+    walls = data
+  }else{
+    data.shift()
+    otherplayers = data
+  }
+  console.log("got data")
+  //console.log(event.data)
+  //console.log(walls)
 })
