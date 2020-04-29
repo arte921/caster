@@ -1,0 +1,17 @@
+wss.on('connection', function connection(ws){
+  const id = Math.random()
+  ws.send(JSON.stringify(walls))
+
+  console.log(id)
+  ws.on('message', function incoming(message){
+
+    players.set(id, player)
+
+    wss.clients.forEach(function each(client){
+      if(client != ws){
+        ws.send(JSON.stringify(players))
+        //console.log("sent " + Math.random())
+      }
+    })
+  })
+})

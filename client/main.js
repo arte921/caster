@@ -79,16 +79,33 @@ socket.addEventListener("open", function(event){
 })
 
 socket.addEventListener("message", function (event) {
-  console.log(JSON.parse(event.data))
+  //console.log(JSON.parse(event.data))
   let data = JSON.parse(event.data)
   if(data[0] == "map"){
-    data.shift()
+    data.splice(0,1)
     walls = data
+    console.log("map")
   }else{
-    data.shift()
-    otherplayers = data
+    data.splice(0,1)
+    //console.log(data)
+    let otherplayers = []
+    data.forEach(player => {
+      otherplayers.push(player)
+    })
+
+    //console.log(otherplayers)
+    otherplayers = otherplayers.map(aplayer => {
+      //console.log(player["pos1"])
+      //
+      let tplayer = JSON.parse(aplayer)
+      //console.log(tplayer.x1)
+      return new Wall(new Point(tplayer.x1, tplayer.y1), new Point(tplayer.x2, tplayer.y2), tplayer.color)
+    })
+    //console.log(walls.concat(otherplayers))
+
+    //otherplayers = data
   }
-  console.log("got data")
+  //console.log("got data")
   //console.log(event.data)
   //console.log(walls)
 })

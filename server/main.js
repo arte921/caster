@@ -22,21 +22,18 @@ wss.on('connection', function connection(ws){
 
   console.log(id)
   ws.on('message', function incoming(message){
-    let playerarray = ["players"]
-    players.forEach((player, playerid) => {
-      if(playerid != id){
-        playerarray.push(player)
-      }
+
+    players.set(id, message)
+
+    let playerarray = ["playerupdate"]
+
+    players.forEach(player => {
+      playerarray.push(player)
     })
-
-
-
 
     wss.clients.forEach(function each(client){
-      if(client != ws){
-        ws.send(JSON.stringify(players))
-        console.log("sent")
-      }
+      client.send(JSON.stringify(playerarray))
     })
+
   })
 })

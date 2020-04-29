@@ -33,27 +33,16 @@ class Player{
       //console.log(ray)
       let record, recordintersection
       let recorddistance = Infinity
-      
-      walls.forEach(wall => {
+
+      let scene = walls.concat(otherplayers)
+
+      scene.forEach(wall => {
         let intersection = ray.intersect(wall)
         if(intersection != null){
           let distance = intersection.distanceto(this.pos)
 
           if(distance < recorddistance){
             record = wall
-            recorddistance = distance
-            recordintersection = intersection
-          }
-        }
-      })
-
-      otherplayers.forEach(player => {
-        let intersection = ray.intersect(player)
-        if(intersection != null){
-          let distance = intersection.distanceto(this.pos)
-
-          if(distance < recorddistance){
-            record = player
             recorddistance = distance
             recordintersection = intersection
           }
