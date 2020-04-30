@@ -50,3 +50,5 @@ wss.on('connection', function connection(ws){
     players.delete(ws.arte921raycasterid)
   })
 })
+
+//TODO: pinging?
