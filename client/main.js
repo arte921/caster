@@ -101,8 +101,8 @@ socket.addEventListener("message", function (event) {
       //console.log(tplayer.x1)
       //return new Wall(new Point(tplayer.x1, tplayer.y1), new Point(tplayer.x2, tplayer.y2), tplayer.color)
     })
-    console.log(walls)
-    console.log(otherplayers)
+    //console.log(walls)
+    //console.log(otherplayers)
 
     //otherplayers = data
   }

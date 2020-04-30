@@ -22,33 +22,31 @@ wss.on('connection', function connection(ws){
   ws.arte921raycasterid = id
 
   //console.log(id)
-  ws.on('message', function incoming(message){
+  ws.on('message', message => {
 
     players.set(id, message)
 
     //console.log(ws.arte921raycasterid)
 
-    let playerarray = ["playerupdate"]
+    wss.clients.forEach(client => {
+      if(client.arte921raycasterid !== id){
+        let playerarray = ["playerupdate"]
 
+        players.forEach((player, playerid) => {
+          if(playerid !== id){
+            playerarray.push(player)
+          }
+        })
 
+        console.log(playerarray.length - 1)
 
-
-
-    wss.clients.forEach(function each(client){
-
-      players.forEach((player, playerid) => {
-        if(playerid !== id){
-          playerarray.push(player)
-        }
-      })
-
-      client.send(JSON.stringify(playerarray))
-
+        client.send(JSON.stringify(playerarray))
+      }
     })
 
   })
 
-  ws.on('close', function clear(){
+  ws.on('close', () => {
     players.delete(ws.arte921raycasterid)
   })
 })
