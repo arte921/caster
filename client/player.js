@@ -8,6 +8,7 @@ class Player{
     this.minimap = new Minimap(0, 0, 80, 100, 100, walls) //minx, miny, xsize, scenewidth, sceneheight, walls
     this.shield = new Shield(this)
     this.color = "rgb(" + Math.random() * 255 + "," + Math.random() * 255 + "," + Math.random() * 255 + ")"
+    //this.noprod = {}
   }
 
   move(dest){
@@ -28,6 +29,7 @@ class Player{
     ctx.clearRect(0,0,mcbwidth,mcbheight)
     this.shield = new Shield(this)
     this.minimap.render(this.pos, this.shield)
+    //console.clear()
     for(let i=0; i<mcbwidth; i++){
       let ray = new Ray(this.pos,this.shield.rayintersect(i,mcbwidth))
       //console.log(ray)
@@ -37,6 +39,8 @@ class Player{
       let scene = walls.concat(otherplayers)
 
       scene.forEach(wall => {
+        //this.noprod++
+
         let intersection = ray.intersect(wall)
         if(intersection != null){
           let distance = intersection.distanceto(this.pos)

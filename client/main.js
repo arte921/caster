@@ -84,11 +84,11 @@ socket.addEventListener("message", function (event) {
   if(data[0] == "map"){
     data.splice(0,1)
     walls = data
-    console.log("map")
+    console.log("recieved map")
   }else{
     data.splice(0,1)
     //console.log(data)
-    let otherplayers = []
+    otherplayers = []
     data.forEach(player => {
       otherplayers.push(player)
     })
@@ -97,11 +97,12 @@ socket.addEventListener("message", function (event) {
     otherplayers = otherplayers.map(aplayer => {
       //console.log(player["pos1"])
       //
-      let tplayer = JSON.parse(aplayer)
+      return JSON.parse(aplayer)
       //console.log(tplayer.x1)
-      return new Wall(new Point(tplayer.x1, tplayer.y1), new Point(tplayer.x2, tplayer.y2), tplayer.color)
+      //return new Wall(new Point(tplayer.x1, tplayer.y1), new Point(tplayer.x2, tplayer.y2), tplayer.color)
     })
-    //console.log(walls.concat(otherplayers))
+    console.log(walls)
+    console.log(otherplayers)
 
     //otherplayers = data
   }
