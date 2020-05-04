@@ -1,7 +1,7 @@
 class Minimap{
   constructor(minx, miny, xsize, scenewidth, sceneheight, walls){
     this.xsize = xsize
-    this.ysize = xsize/scenewidth*sceneheight
+    this.ysize = xsize / scenewidth * sceneheight
     this.minx = minx
     this.miny = miny
     this.maxx = minx + xsize
@@ -15,11 +15,11 @@ class Minimap{
     ctx.fillStyle = bgcolor
     ctx.fillRect(this.minx, this.miny, this.xsize, this.ysize)
     this.walls.forEach(wall => {
-      this.drawline(wall.pos1,wall.pos2,wall.color)
+      this.drawline(wall.pos1, wall.pos2, wall.color)
     })
     ctx.fillStyle = "rgb(255,255,255)"
-    ctx.fillRect(this.xtopx(playerpos.x), this.ytopx(playerpos.y),1,1)
-    this.drawline(shield.pos1,shield.pos2,"rgb(255,255,255)")
+    ctx.fillRect(this.xtopx(playerpos.x), this.ytopx(playerpos.y), 1, 1)
+    this.drawline(shield.pos1, shield.pos2, "rgb(255,255,255)")
   }
 
   xtopx(x){
