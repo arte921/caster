@@ -14,7 +14,7 @@ class Minimap{
   render(playerpos, shield){
     ctx.fillStyle = bgcolor
     ctx.fillRect(this.minx, this.miny, this.xsize, this.ysize)
-    this.walls.forEach(wall => {
+    walls.forEach(wall => {
       this.drawline(wall.pos1, wall.pos2, wall.color)
     })
     ctx.fillStyle = "rgb(255,255,255)"

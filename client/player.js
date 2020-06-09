@@ -45,7 +45,7 @@ class Player{
         if(intersection != null){
           let distance = intersection.distanceto(this.pos)
 
-          if(distance < recorddistance){
+          if(distance < recorddistance && wall.color != player.color){
             record = wall
             recorddistance = distance
             recordintersection = intersection

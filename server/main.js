@@ -1,5 +1,5 @@
 const WebSocket = require('ws')
-const wss = new WebSocket.Server({port: 8080})
+const wss = new WebSocket.Server({port: 30000})
 const { Wall } = require("./wall")
 const { Point } = require("./point")
 
@@ -33,7 +33,7 @@ wss.on('connection', function connection(ws){
 				let playerarray = ["playerupdate"]
 
 				players.forEach((player, playerid) => {
-					if(playerid !== client.id){
+					if(playerid != client.id){
 						playerarray.push(player)
 						//	console.log(playerid, id)
 					}

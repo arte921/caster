@@ -72,7 +72,7 @@ function lockChangeAlert() {
 
 window.requestAnimationFrame(drawframe)
 
-var socket = new WebSocket("ws://localhost:8080")
+var socket = new WebSocket("ws://192.168.178.108:30000")
 socket.addEventListener("open", function(event){
   socket.send(JSON.stringify(new Wall(player.shield.pos1, player.shield.pos2, player.color)))
   console.log("connected")
@@ -106,7 +106,7 @@ socket.addEventListener("message", function (event) {
 
     //otherplayers = data
   }
-  //console.log("got data")
-  //console.log(event.data)
+  console.log("got data")
+  console.log(event.data)
   //console.log(walls)
 })
