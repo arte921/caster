@@ -75,7 +75,7 @@ function lockChangeAlert() {
 
 window.requestAnimationFrame(drawframe)
 
-var socket = new WebSocket("ws://192.168.178.108:30000")
+var socket = new WebSocket("wss://213.247.103.127:30000")
 socket.addEventListener("open", function(event){
   socket.send(JSON.stringify(new Wall(player.shield.pos1, player.shield.pos2, player.color)))
   console.log("connected")

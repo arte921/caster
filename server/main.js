@@ -19,23 +19,25 @@ var players = new Map()
 wss.on('connection', function connection(ws){
 	const id = Math.random()
 	ws.send(JSON.stringify(walls))
-	ws.arte921raycasterid = id
+	ws.clientid = id
 
 	//console.log(id)
 	ws.on('message', message => {
 
 		players.set(id, message)
 
-		//console.log(ws.arte921raycasterid)
+		//console.log(ws.clientid)
 
 		wss.clients.forEach(client => {
-			if(client.arte921raycasterid !== id){
+			if(client.clientid != id){
 				let playerarray = ["playerupdate"]
 
 				players.forEach((player, playerid) => {
-					if(playerid != client.id){
+					console.log(playerid, client.clientid, playerid != client.clientid)
+					if(playerid != client.clientid){
+
 						playerarray.push(player)
-						//	console.log(playerid, id)
+						console.log(playerid, id)
 					}
 
 					//console.log(playerid, id)
@@ -52,7 +54,7 @@ wss.on('connection', function connection(ws){
 	})
 
 	ws.on('close', () => {
-		players.delete(ws.arte921raycasterid)
+		players.delete(ws.playerid)
 	})
 })
 

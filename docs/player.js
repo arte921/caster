@@ -44,8 +44,8 @@ class Player{
         let intersection = ray.intersect(wall)
         if(intersection != null){
           let distance = intersection.distanceto(this.pos)
-
-          if(distance < recorddistance && wall.color != player.color){
+          // && wall.color != player.color
+          if(distance < recorddistance){
             record = wall
             recorddistance = distance
             recordintersection = intersection
