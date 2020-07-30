@@ -40,7 +40,8 @@ wss.on("connection", function connection(ws) {
 
         wss.clients.forEach((client) => {
             if (client.clientid != id) {
-
+                let playerarray = [];
+                
                 players.forEach((player, playerid) => {
                     console.log(
                         playerid,
