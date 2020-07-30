@@ -109,7 +109,7 @@ function lockChangeAlert() {
 
 window.requestAnimationFrame(drawframe);
 
-var socket = new WebSocket("ws://localhost:30000/");
+var socket = new WebSocket("ws://arte921.duckdns.org:30000/");
 
 socket.addEventListener("open", function (event) {
     socket.send(
@@ -123,7 +123,7 @@ socket.addEventListener("open", function (event) {
 socket.addEventListener("message", function (event) {
     //console.log(JSON.parse(event.data))
     let data = JSON.parse(event.data);
-    
+
     if (data.type == "map") {
         walls = data.data;
         console.log("recieved map");
