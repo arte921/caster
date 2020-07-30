@@ -10,76 +10,18 @@ const heightfactor = 0.1;
 
 let fov = 70;
 
-var walls = [];
-walls.push(
-  new Wall(
-    new Point(10, 10),
-    new Point(10, 90),
-    "rgb(" +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      ")"
-  )
-);
-walls.push(
-  new Wall(
-    new Point(10, 10),
-    new Point(90, 10),
-    "rgb(" +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      ")"
-  )
-);
-walls.push(
-  new Wall(
-    new Point(90, 90),
-    new Point(10, 90),
-    "rgb(" +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      ")"
-  )
-);
-walls.push(
-  new Wall(
-    new Point(90, 90),
-    new Point(90, 10),
-    "rgb(" +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      "," +
-      Math.random() * 255 +
-      ")"
-  )
-);
+let walls = [];
+
+walls.push(new Wall(new Point(10, 10), new Point(10, 90)));
+walls.push(new Wall(new Point(10, 10), new Point(90, 10)));
+walls.push(new Wall(new Point(90, 90), new Point(10, 90)));
+walls.push(new Wall(new Point(90, 90), new Point(90, 10)));
 
 for (let i = 0; i < 10; i++) {
-  walls.push(
-    new Wall(
-      new Point(Math.random() * 100, Math.random() * 100),
-      new Point(Math.random() * 100, Math.random() * 100),
-      "rgb(" +
-        Math.random() * 255 +
-        "," +
-        Math.random() * 255 +
-        "," +
-        Math.random() * 255 +
-        ")"
-    )
-  );
+  walls.push(new Wall());
 }
-var otherplayers = [];
+
+let otherplayers = [];
 
 let player = new Player(
   new Point(40, 40),
@@ -150,11 +92,14 @@ canvas.requestPointerLock =
   canvas.requestPointerLock || canvas.mozRequestPointerLock;
 document.exitPointerLock =
   document.exitPointerLock || document.mozExitPointerLock;
+
 canvas.onclick = () => {
   canvas.requestPointerLock();
 };
+
 document.addEventListener("pointerlockchange", lockChangeAlert, false);
 document.addEventListener("mozpointerlockchange", lockChangeAlert, false);
+
 function lockChangeAlert() {
   if (
     document.pointerLockElement === canvas ||
@@ -168,7 +113,8 @@ function lockChangeAlert() {
 
 window.requestAnimationFrame(drawframe);
 
-var socket = new WebSocket("ws://arte921.duckdns.org:30000/");
+var socket = new WebSocket("ws://localhost:30000/");
+
 socket.addEventListener("open", function (event) {
   socket.send(
     JSON.stringify(
