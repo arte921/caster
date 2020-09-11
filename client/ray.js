@@ -14,27 +14,29 @@ class Ray {
         let denominator =
             (wall.x1 - wall.x2) * (this.y1 - this.y2) -
             (wall.y1 - wall.y2) * (this.x1 - this.x2);
+
         if (denominator == 0) return null;
-        let t =
-            ((wall.x1 - this.x1) * (this.y1 - this.y2) -
-                (wall.y1 - this.y1) * (this.x1 - this.x2)) /
-            denominator;
+
+        let t = (
+                (wall.x1 - this.x1) * (this.y1 - this.y2) -
+                (wall.y1 - this.y1) * (this.x1 - this.x2)
+            ) / denominator;
 
         //if(t >= 0 && t < 1 && (this.x1 - this.x2) * (this.x1 - wall.x1) > 0 && (this.y1 - this.y2) * (this.y1 - wall.y1) > 0){
-        let int = new Point(
+        let intersection = new Point(
             wall.x1 + t * (wall.x2 - wall.x1),
             wall.y1 + t * (wall.y2 - wall.y1)
         );
 
         let xa = this.x1 - this.x2;
         let ya = this.y1 - this.y2;
-        let xb = this.x1 - int.x;
-        let yb = this.y1 - int.y;
+        let xb = this.x1 - intersection.x;
+        let yb = this.y1 - intersection.y;
 
         //console.log(ya/xa, yb/xb)
         //console.log(xa,ya,xb,yb)
         //console.log(Math.abs(Math.acos((xa*ya+xb*yb)/(Math.sqrt(Math.pow(xa,2)+Math.pow(ya,2))*Math.sqrt(Math.pow(xb,2)+Math.pow(yb,2))))))
-        if (t >= 0 && t <= 1 && xa * xb > 0 && ya * ya > 0) return int;
+        if (t >= 0 && t <= 1 && xa * xb > 0 && ya * ya > 0) return intersection;
         return null;
     }
 }

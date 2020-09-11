@@ -2,13 +2,7 @@ class Wall {
     constructor(
         pos1 = new Point(),
         pos2 = new Point(),
-        color = "rgb(" +
-            Math.round(Math.random() * 255) +
-            "," +
-            Math.round(Math.random() * 255) +
-            "," +
-            Math.round(Math.random() * 255) +
-            ")"
+        color = randomcolor()
     ) {
         this.pos1 = pos1;
         this.pos2 = pos2;

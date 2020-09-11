@@ -11,23 +11,17 @@ class Minimap {
         this.walls = walls;
     }
 
+    xtopx = x => this.minx + (x / this.scenewidth) * (this.maxx - this.minx);
+
+    ytopx = y => this.miny + (y / this.sceneheight) * (this.maxy - this.miny);
+
     render(playerpos, shield) {
         ctx.fillStyle = bgcolor;
         ctx.fillRect(this.minx, this.miny, this.xsize, this.ysize);
-        walls.forEach((wall) => {
-            this.drawline(wall.pos1, wall.pos2, wall.color);
-        });
+        walls.forEach(wall => this.drawline(wall.pos1, wall.pos2, wall.color));
         ctx.fillStyle = "rgb(255,255,255)";
         ctx.fillRect(this.xtopx(playerpos.x), this.ytopx(playerpos.y), 1, 1);
         this.drawline(shield.pos1, shield.pos2, "rgb(255,255,255)");
-    }
-
-    xtopx(x) {
-        return this.minx + (x / this.scenewidth) * (this.maxx - this.minx);
-    }
-
-    ytopx(y) {
-        return this.miny + (y / this.sceneheight) * (this.maxy - this.miny);
     }
 
     drawline(pos1, pos2, color) {

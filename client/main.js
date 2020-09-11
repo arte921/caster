@@ -1,10 +1,10 @@
-var mcbwidth = window.innerWidth;
-var mcbheight = window.innerHeight;
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
+const mcbwidth = window.innerWidth;
+const mcbheight = window.innerHeight;
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 canvas.width = mcbwidth;
 canvas.height = mcbheight;
-var bgcolor = "#000000";
+const bgcolor = "#000000";
 
 const heightfactor = 0.1;
 const fov = 70;
@@ -17,9 +17,7 @@ walls.push(new Wall(new Point(10, 10), new Point(90, 10)));
 walls.push(new Wall(new Point(90, 90), new Point(10, 90)));
 walls.push(new Wall(new Point(90, 90), new Point(90, 10)));
 
-for (let i = 0; i < 10; i++) {
-    walls.push(new Wall());
-}
+for (let i = 0; i < 10; i++) walls.push(new Wall());
 
 let otherplayers = [];
 
@@ -84,34 +82,29 @@ document.onkeypress = function (e) {
     }
 };
 
-canvas.requestPointerLock =
-    canvas.requestPointerLock || canvas.mozRequestPointerLock;
-document.exitPointerLock =
-    document.exitPointerLock || document.mozExitPointerLock;
+canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock;
+document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock;
 
-canvas.onclick = () => {
-    canvas.requestPointerLock();
-};
+canvas.onclick = () => canvas.requestPointerLock();
+
+const lockChangeAlert = () => {
+    if (
+        document.pointerLockElement === canvas ||
+        document.mozPointerLockElement === canvas
+    ) document.addEventListener("mousemove", mousemoved, false);
+    else document.removeEventListener("mousemove", mousemoved, false);
+}
 
 document.addEventListener("pointerlockchange", lockChangeAlert, false);
 document.addEventListener("mozpointerlockchange", lockChangeAlert, false);
 
-function lockChangeAlert() {
-    if (
-        document.pointerLockElement === canvas ||
-        document.mozPointerLockElement === canvas
-    ) {
-        document.addEventListener("mousemove", mousemoved, false);
-    } else {
-        document.removeEventListener("mousemove", mousemoved, false);
-    }
-}
+
 
 window.requestAnimationFrame(drawframe);
 
-var socket = new WebSocket("ws://arte921.duckdns.org:30000/");
+const socket = new WebSocket("ws://arte921.duckdns.org:30000/");
 
-socket.addEventListener("open", function (event) {
+socket.addEventListener("open", (event) => {
     socket.send(
         JSON.stringify(
             new Wall(player.shield.pos1, player.shield.pos2, player.color)
@@ -120,33 +113,18 @@ socket.addEventListener("open", function (event) {
     console.log("connected");
 });
 
-socket.addEventListener("message", function (event) {
-    //console.log(JSON.parse(event.data))
-    let data = JSON.parse(event.data);
+socket.addEventListener("message", (event) => {
+    const data = JSON.parse(event.data);
 
     if (data.type == "map") {
         walls = data.data;
         console.log("recieved map");
     } else {
         otherplayers = [];
-        data.data.forEach((player) => {
-            otherplayers.push(player);
-        });
-
-        //console.log(otherplayers)
-        otherplayers = otherplayers.map((aplayer) => {
-            //console.log(player["pos1"])
-            //
-            return JSON.parse(aplayer);
-            //console.log(tplayer.x1)
-            //return new Wall(new Point(tplayer.x1, tplayer.y1), new Point(tplayer.x2, tplayer.y2), tplayer.color)
-        });
-        //console.log(walls)
-        //console.log(otherplayers)
-
-        //otherplayers = data
+        data.data.forEach(player => otherplayers.push(player));
+        otherplayers = otherplayers.map(JSON.parse);
     }
+
     console.log("got data");
     console.log(event.data);
-    //console.log(walls)
 });

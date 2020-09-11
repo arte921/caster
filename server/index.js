@@ -3,21 +3,19 @@ const wss = new WebSocket.Server({ port: 30000 });
 const { Wall } = require("./wall");
 const { Point } = require("./point");
 
-var walls = [];
+let walls = [];
 
 walls.push(new Wall(new Point(10, 10), new Point(10, 90)));
 walls.push(new Wall(new Point(10, 10), new Point(90, 10)));
 walls.push(new Wall(new Point(90, 90), new Point(10, 90)));
 walls.push(new Wall(new Point(90, 90), new Point(90, 10)));
 
-for (let i = 0; i < 10; i++) {
-    walls.push(new Wall());
-}
+for (let i = 0; i < 10; i++) walls.push(new Wall());
 
-var players = new Map();
+let players = new Map();
 
 function send(data, type, ws) {
-    let object = {
+    const object = {
         type:type,
         data:data
     };
@@ -38,34 +36,30 @@ wss.on("connection", function connection(ws) {
 
         //console.log(ws.clientid)
 
-        wss.clients.forEach((client) => {
-            if (client.clientid != id) {
-                let playerarray = [];
+        wss.clients.filter(client.clientid != id).forEach((client) => {
+            let playerarray = [];
+            
+            players.forEach((player, playerid) => {
+                console.log(
+                    playerid,
+                    client.clientid,
+                    playerid != client.clientid
+                );
                 
-                players.forEach((player, playerid) => {
-                    console.log(
-                        playerid,
-                        client.clientid,
-                        playerid != client.clientid
-                    );
-                    if (playerid != client.clientid) {
-                        playerarray.push(player);
-                        console.log(playerid, id);
-                    }
+                if (playerid != client.clientid) {
+                    playerarray.push(player);
+                    console.log(playerid, id);
+                }
+            });
 
-                    //console.log(playerid, id)
-                });
+            console.log(playerarray.length - 1);
 
-                console.log(playerarray.length - 1);
-
-                send(playerarray, "playerupdate", client);
-            }
+            send(playerarray, "playerupdate", client);
+            
         });
     });
 
-    ws.on("close", () => {
-        players.delete(ws.playerid);
-    });
+    ws.on("close", () => players.delete(ws.playerid));
 });
 
-//TODO: pinging?
+//TODO: pinging
